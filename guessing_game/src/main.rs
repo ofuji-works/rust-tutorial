@@ -3,12 +3,16 @@
 // Rustはデフォルトで、標準ライブラリで定義されているアイテム(prelude（プレリュード）)
 // 使いたい型がpreludeにない場合は、その型をuse文で明示的にスコープに入れる必要があります。
 use std::io;
+use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
 
-    println!("Please input your guess.");
+    let secret_number = rand::thred_rng().gen_range(1..101);
 
+    println!("The secret number is: {}", secret_number); 
+
+    println!("Please input your guess.");
 
     // Rustでは変数はデフォルトで不変（immutable）になります。
     // 変数を可変（mutable）にするには、変数名の前にmutをつけます。
@@ -25,4 +29,9 @@ fn main() {
         .expect("Failed to read line");
 
     println!("You guessed: {}", guess); 
+
+    let x = 5;
+    let y = 10;
+    
+    println!("x = {} and y = {}", x, y);
 }
