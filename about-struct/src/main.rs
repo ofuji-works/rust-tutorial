@@ -1,9 +1,17 @@
 // 構造体
+#[derive(Debug)]
 struct User {
     username: String,
     email: String,
     sign_in_count: u64,
     active: bool,
+}
+
+// println!で構造体を出力できるようにする
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
 }
 
 fn main() {
@@ -24,6 +32,10 @@ fn main() {
         username: String::from("anotherusername567"),
         ..user1
     };
+    println!("user2 {:#?}", user2);
+
+    let user3 = build_user(String::from("test3@example.com"), String::from("test3"));
+    println!("user3 {:#?}", user3);
 
     // タプル構造体
     // フィールドに紐づけられた名前がなく、むしろフィールドの型だけ
@@ -39,6 +51,16 @@ fn main() {
 
     // ユニット様構造体
     // ある型にトレイトを実装するけれども、 型自体に保持させるデータは一切ない場面に有効になります
+
+    // 構造体を使ってリファクタリング
+    let rect1 = Rectangle {
+        width: 32,
+        height: 32,
+    };
+    println!("height * width {}", area(&rect1));
+
+    // デバッグで構造体を出力する
+    println!("rect1 {:#?}", rect1);
 }
 
 fn build_user(email: String, username: String) -> User {
@@ -49,4 +71,8 @@ fn build_user(email: String, username: String) -> User {
         active: true,
         sign_in_count: 1,
     }
+}
+
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
 }
