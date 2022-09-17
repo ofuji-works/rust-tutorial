@@ -14,6 +14,27 @@ struct Rectangle {
     height: u32,
 }
 
+// Rectangleの文脈内で関数を定義するには、impl(implementation; 実装)ブロックを始めます。
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+
+// 複数のimplブロックを存在させることができます
+impl Rectangle {
+    // 関連関数
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
+}
+
 fn main() {
     // 構造体のインスタンスの生成
     let mut user1 = User {
@@ -61,6 +82,34 @@ fn main() {
 
     // デバッグで構造体を出力する
     println!("rect1 {:#?}", rect1);
+
+    {
+        let rect1 = Rectangle {
+            width: 30,
+            height: 50,
+        };
+        println!(
+            "The area of the rectangle is {} square pixels.",
+            rect1.area()
+        );
+
+        let rect2 = Rectangle {
+            width: 10,
+            height: 40,
+        };
+        println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+        let rect3 = Rectangle {
+            width: 60,
+            height: 45,
+        };
+        println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+
+        let rect4 = Rectangle::square(30);
+        println!(
+            "The area of the rectangle is {} square pixels.",
+            rect4.area()
+        );
+    }
 }
 
 fn build_user(email: String, username: String) -> User {
